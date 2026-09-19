@@ -1,0 +1,188 @@
+/* ==========================================================
+   Atelier souris et clavier — feuille de style unique
+   ========================================================== */
+:root{
+  --papier:#e9eef6;
+  --carte:#ffffff;
+  --encre:#12203a;
+  --encre-doux:#5a6a85;
+  --souris:#1f5fd0;
+  --souris-clair:#d9e5fb;
+  --clavier:#e08a00;
+  --clavier-clair:#fdeccd;
+  --vert:#17915f;
+  --vert-clair:#d6f0e4;
+  --rouge:#cf3535;
+  --rouge-clair:#fadddd;
+  --trait:3px solid var(--encre);
+  --rayon:14px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--papier);color:var(--encre);
+  font-family:system-ui,"Segoe UI",Avenir,"Trebuchet MS",sans-serif;
+  font-size:clamp(16px, .6vw + 15px, 19px);line-height:1.5;
+}
+button{font:inherit;color:inherit}
+h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.01em}
+img{display:block}
+
+/* ---------- en-tête ---------- */
+header{display:flex;align-items:center;gap:16px;padding:14px 22px;
+  background:var(--carte);border-bottom:var(--trait);flex-wrap:wrap}
+.marque{font-size:22px;font-weight:800;margin-right:auto}
+.marque span{color:var(--souris-clair);background:var(--souris);padding:2px 8px;border-radius:8px}
+.bouton{background:var(--carte);border:var(--trait);border-radius:10px;padding:9px 16px;
+  font-weight:700;cursor:pointer;box-shadow:3px 3px 0 var(--encre);
+  transition:transform .06s,box-shadow .06s}
+.bouton:hover{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--encre)}
+.bouton:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--encre)}
+.bouton.principal{background:var(--vert);color:#fff}
+.bouton.discret{box-shadow:none;border-width:2px}
+.compteur{display:flex;align-items:center;gap:8px;font-weight:800;
+  background:var(--clavier-clair);border:var(--trait);border-radius:10px;padding:7px 14px}
+#prenom{border:var(--trait);border-radius:10px;padding:8px 12px;font:inherit;
+  font-weight:700;width:150px;background:var(--carte)}
+#prenom::placeholder{color:var(--encre-doux);font-weight:400}
+#confettis{position:fixed;inset:0;pointer-events:none;z-index:99}
+
+main{max-width:min(1080px, 94vw);margin:0 auto;padding:clamp(18px,3vw,34px) clamp(12px,3vw,22px) 70px}
+
+/* ---------- accueil ---------- */
+.intro{max-width:56ch;margin-bottom:30px}
+.intro h1{font-size:40px;margin-bottom:10px}
+.intro p{margin:0;color:var(--encre-doux);font-size:19px}
+.familles{display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:26px}
+.famille{border:var(--trait);border-radius:var(--rayon);background:var(--carte);
+  padding:0 0 22px;cursor:pointer;text-align:left;overflow:hidden;
+  box-shadow:8px 8px 0 var(--encre);transition:transform .08s,box-shadow .08s}
+.famille:hover{transform:translate(2px,2px);box-shadow:6px 6px 0 var(--encre)}
+.famille:active{transform:translate(8px,8px);box-shadow:0 0 0 var(--encre)}
+.famille .image{padding:22px 18px;border-bottom:var(--trait);display:grid;place-items:center}
+.famille[data-f="souris"] .image{background:var(--souris-clair)}
+.famille[data-f="clavier"] .image{background:var(--clavier-clair)}
+.famille .image img{width:auto;height:168px}
+.famille .texte{padding:18px 22px 0}
+.famille h2{font-size:30px;margin-bottom:6px}
+.famille p{margin:0;color:var(--encre-doux)}
+.famille .compte{margin-top:14px;font-weight:700;font-size:16px}
+
+/* ---------- liste d'exercices ---------- */
+.fil{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.fil h1{font-size:32px}
+.liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.tuile{display:flex;gap:16px;align-items:flex-start;text-align:left;background:var(--carte);
+  border:var(--trait);border-radius:var(--rayon);padding:18px;cursor:pointer;
+  box-shadow:5px 5px 0 var(--encre);transition:transform .08s,box-shadow .08s}
+.tuile:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--encre)}
+.tuile:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--encre)}
+.tuile .pastille{flex:0 0 56px;height:56px;border:var(--trait);border-radius:12px;
+  display:grid;place-items:center;overflow:hidden}
+.tuile .pastille img{width:100%;height:100%}
+.tuile[data-f="souris"] .pastille{background:var(--souris-clair)}
+.tuile[data-f="clavier"] .pastille{background:var(--clavier-clair)}
+.tuile h3{font-size:19px;margin-bottom:4px}
+.tuile p{margin:0;font-size:15px;color:var(--encre-doux)}
+.tuile .bilan{margin-top:10px;font-size:15px;font-weight:700;display:flex;gap:10px;align-items:center}
+.etoiles{letter-spacing:2px}
+.etoiles .off{opacity:.22}
+
+/* ---------- écran d'exercice ---------- */
+.barre{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:var(--carte);
+  border:var(--trait);border-radius:var(--rayon);padding:14px 18px;margin-bottom:18px;
+  box-shadow:5px 5px 0 var(--encre)}
+.barre h2{font-size:21px}
+.barre .consigne{color:var(--encre-doux);font-size:16px;flex:1 1 240px}
+.niveaux{display:flex;gap:6px;border:2px solid var(--encre);border-radius:10px;padding:3px}
+.niveau-bouton{border:none;background:none;padding:6px 12px;border-radius:7px;
+  font-weight:700;font-size:15px;cursor:pointer;color:var(--encre-doux)}
+.niveau-bouton.actif{background:var(--souris);color:#fff}
+.jauge{width:150px;height:14px;border:2px solid var(--encre);border-radius:8px;
+  overflow:hidden;background:var(--papier)}
+.jauge i{display:block;height:100%;width:0;background:var(--vert);transition:width .25s}
+.scene{position:relative;background:var(--carte);border:var(--trait);border-radius:var(--rayon);
+  box-shadow:6px 6px 0 var(--encre);padding:22px;min-height:440px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.scene-contenu{display:flex;flex-direction:column;align-items:center;gap:18px;width:100%}
+.aide{min-height:30px;font-weight:700;text-align:center;padding:5px 14px;border-radius:9px}
+.aide.ok{background:var(--vert-clair);color:var(--vert)}
+.aide.non{background:var(--rouge-clair);color:var(--rouge)}
+.bilan-fin{position:absolute;inset:0;background:rgba(233,238,246,.96);display:flex;
+  flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  border-radius:11px;text-align:center;padding:26px}
+.bilan-fin .grosses-etoiles{font-size:56px;letter-spacing:6px}
+.bilan-fin h2{font-size:30px}
+.bilan-fin p{margin:0;color:var(--encre-doux);max-width:40ch}
+.bilan-fin .actions{display:flex;gap:14px;margin-top:8px}
+
+/* ---------- exercices souris ---------- */
+/* La hauteur suit la largeur (aspect-ratio) plutôt que d'être fixe :
+   le terrain garde ses proportions sur n'importe quelle résolution
+   d'écran, et le JavaScript place ses cibles d'après la taille réelle
+   mesurée au moment du jeu, jamais d'après un nombre de pixels fixe. */
+.terrain{position:relative;width:100%;max-width:720px;aspect-ratio:720/380;min-height:260px;
+  background:var(--papier);border:var(--trait);border-radius:11px;overflow:hidden}
+.cible{position:absolute;border:none;background:none;padding:0;cursor:pointer}
+.cible img{width:100%;height:100%}
+.cible.partie{animation:eclate .3s forwards}
+@keyframes eclate{to{transform:scale(1.5);opacity:0}}
+
+.cadre-revelation{position:relative;width:100%;max-width:660px;aspect-ratio:660/340;min-height:230px;
+  border:var(--trait);border-radius:11px;overflow:hidden;
+  background:linear-gradient(135deg,var(--souris-clair),var(--clavier-clair))}
+.cadre-revelation img{position:absolute;inset:0;margin:auto;width:auto;height:88%;max-width:88%}
+.cadre-revelation canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.choix{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+
+.labyrinthe{display:grid;border:var(--trait);border-radius:11px;overflow:auto;background:var(--encre);
+  max-width:100%}
+.lab-case{width:30px;height:30px}
+.lab-case.mur{background:var(--encre)}
+.lab-case.libre{background:var(--carte)}
+.lab-case.passee{background:var(--souris-clair)}
+.lab-case.depart{background:var(--vert)}
+.lab-case.arrivee{background:var(--clavier)}
+
+.atelier-glisser{display:flex;gap:46px;align-items:center;flex-wrap:wrap;justify-content:center}
+.bac{display:flex;flex-direction:column;gap:14px}
+.piece{width:76px;height:76px;border:var(--trait);border-radius:12px;cursor:grab;
+  background:var(--carte);box-shadow:3px 3px 0 var(--encre);padding:6px;
+  touch-action:none;user-select:none}
+.piece img{width:100%;height:100%;pointer-events:none}
+.piece.prise{cursor:grabbing;position:fixed;z-index:50;pointer-events:none;
+  box-shadow:8px 8px 0 var(--encre)}
+.trou{width:76px;height:76px;border:3px dashed var(--encre-doux);border-radius:12px;
+  padding:6px;background:var(--carte)}
+.trou img{width:100%;height:100%;opacity:.28;filter:grayscale(1)}
+.trou.survol{border-color:var(--vert);background:var(--vert-clair)}
+.trou.remplie{border:var(--trait);background:var(--vert-clair)}
+.trou.remplie img{opacity:1;filter:none}
+.fleche{font-size:34px;color:var(--encre-doux);font-weight:800}
+
+/* ---------- exercices clavier ---------- */
+.cible-texte{font-family:Verdana,Tahoma,sans-serif;font-size:clamp(32px, 5vw, 58px);font-weight:700;
+  letter-spacing:4px;background:var(--carte);border:var(--trait);border-radius:12px;
+  padding:16px 28px;box-shadow:5px 5px 0 var(--encre);min-width:220px;text-align:center}
+.cible-texte .fait{color:var(--vert)}
+.cible-texte .encours{background:var(--clavier);color:#fff;border-radius:6px;padding:0 6px}
+.cible-texte .reste{color:var(--encre-doux)}
+.cible-texte.secoue{animation:secousse .25s}
+@keyframes secousse{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+/* Le clavier a une largeur naturelle d'environ 620px (14 touches par
+   rangée) : sur un écran ou une fenêtre plus étroite que ça, il défile
+   horizontalement plutôt que de déborder ou d'être coupé. */
+.clavier{display:flex;flex-direction:column;gap:6px;align-items:center;user-select:none;
+  max-width:100%;overflow-x:auto;padding-bottom:2px}
+.clavier.masque{display:none}          /* le bouton Masquer agit ici */
+.rangee{display:flex;gap:6px}
+.touche{min-width:42px;height:46px;border:2px solid var(--encre);border-radius:8px;
+  background:var(--carte);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;font-size:15px;font-weight:700;padding:0 6px;flex:none;
+  box-shadow:2px 2px 0 var(--encre)}
+.touche small{font-size:11px;font-weight:600;color:var(--encre-doux);line-height:1}
+.touche.attendue{background:var(--clavier);color:#fff;transform:translate(2px,2px);
+  box-shadow:0 0 0 var(--encre)}
+.touche.attendue small{color:#fff}
+.touche.maj-attendue{background:var(--souris);color:#fff}
+.indice{margin:0;color:var(--encre-doux);text-align:center;max-width:54ch}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier souris et clavier</title>
+<link rel="icon" href="ressources/familles/souris.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="marque"><span>Atelier</span> souris et clavier</div>
+  <input id="prenom" placeholder="Votre prénom" maxlength="14" aria-label="Votre prénom">
+  <div class="compteur" id="compteur">0 point</div>
+  <button class="bouton" id="btn-son">Son activé</button>
+  <button class="bouton" id="btn-accueil" hidden>Accueil</button>
+</header>
+
+<main id="racine"></main>
+<canvas id="confettis" hidden></canvas>
+
+<!-- L'ordre de ces fichiers compte : les outils d'abord, le démarrage en dernier.
+     Pour ajouter un fichier d'exercices, insérez-le avant demarrage.js. -->
+<script src="js/outils.js"></script>
+<script src="js/scores.js"></script>
+<script src="js/registre.js"></script>
+<script src="js/moteurs.js"></script>
+<script src="js/exercices-souris.js"></script>
+<script src="js/exercices-clavier.js"></script>
+<script src="js/ecrans.js"></script>
+<script src="js/demarrage.js"></script>
+</body>
+</html>
