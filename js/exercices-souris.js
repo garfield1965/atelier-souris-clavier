@@ -9,22 +9,10 @@ var IMAGES_A_DECOUVRIR = [
   { fichier: 'images/maison.svg',  nom: 'Une maison',   leurres: ['Une église', 'Une tente'] },
   { fichier: 'images/soleil.svg',  nom: 'Un soleil',    leurres: ['Une roue', 'Une fleur'] },
   { fichier: 'images/bateau.svg',  nom: 'Un bateau',    leurres: ['Un avion', 'Un camion'] },
-  { fichier: 'images/baleine.svg', nom: 'Une baleine',   leurres: ['Un oiseau', 'Un papillon'] },
+  { fichier: 'images/poisson.svg', nom: 'Un poisson',   leurres: ['Un oiseau', 'Un papillon'] },
   { fichier: 'images/voiture.svg', nom: 'Une voiture',  leurres: ['Un train', 'Un autobus'] },
   { fichier: 'images/etoile.svg',  nom: 'Une étoile',   leurres: ['Un flocon', 'Un losange'] },
-  { fichier: 'images/arbre.svg',   nom: 'Un arbre',     leurres: ['Un champignon', 'Un nuage'] },
-  { fichier: 'images/pain.svg',   nom: 'Un pain',     leurres: ['Un fromage', 'Un fruit'] },
-  { fichier: 'images/carrot.svg',   nom: 'Un carotte',     leurres: ['Un champignon', 'Un fruit'] },
-  { fichier: 'images/arbre.svg',   nom: 'Un arbre',     leurres: ['Un champignon', 'Un nuage'] },
-  { fichier: 'images/poulet.svg',   nom: 'Un poulet',     leurres: ['Un canard', 'Un perroquet'] },
-  { fichier: 'images/pompier.svg',   nom: 'Un pompier',     leurres: ['Un policier', 'Un médecin'] },
-  { fichier: 'images/raisin.svg',   nom: 'Un raisin',     leurres: ['Un abricot', 'Un légume'] },
-  { fichier: 'images/police.svg',   nom: 'Police',     leurres: ['Un pompier', 'Un médecin'] },
-  { fichier: 'images/taxi.svg',   nom: 'Un taxi',     leurres: ['Un bus', 'Un camion'] },
-  { fichier: 'images/tambour.svg',   nom: 'Un tambour',     leurres: ['Un piano', 'Une guitare'] },
-  { fichier: 'images/guitare.svg',   nom: 'Une guitare',     leurres: ['Un piano', 'Un tambour'] },
-  { fichier: 'images/piano.svg',   nom: 'Un piano',     leurres: ['Un tambour', 'Une guitare'] },
-  { fichier: 'images/vache.svg',   nom: 'Une vache',     leurres: ['Un cheval', 'Un mouton'] }
+  { fichier: 'images/arbre.svg',   nom: 'Un arbre',     leurres: ['Un champignon', 'Un nuage'] }
 ];
 
 ajouterExercice({
@@ -185,17 +173,31 @@ ajouterExercice({
   resume: 'Ouvrez les dossiers avec deux clics rapides.',
   consigne: 'Deux clics gauches rapprochés, sans bouger la souris entre les deux.',
   demarrer: function(scene, jeu, niveau){
+    // Délai maximum (en millisecondes) toléré entre les deux clics.
+    // C'est le seul réglage qui définit ce qu'est un double-clic "réussi" :
+    // on ne se fie pas au réglage de double-clic propre à chaque
+    // ordinateur (il varie d'un poste à l'autre), on mesure nous-mêmes.
+    var VITESSE_MAX = parNiveau(niveau, { facile: 700, moyen: 500, fort: 350 });
+
     exerciceDeClic(scene, jeu, {
       nombre: parNiveau(niveau, {facile:6, moyen:8, fort:11}),
       taille: parNiveau(niveau, {facile:104, moyen:88, fort:64}),
       image: 'jeu/dossier-ferme.svg', imageApres: 'jeu/dossier-ouvert.svg',
       brancher: function(cible, reussite, erreur){
-        var simples = 0;
-        cible.addEventListener('dblclick', reussite);
+        var dernierClic = 0;
         cible.addEventListener('click', function(){
-          simples++;
-          if(simples >= 2) erreur('Presque : les deux clics doivent être plus rapprochés.');
-          setTimeout(function(){ simples = 0; }, 900);
+          var maintenant = Date.now();
+          var delta = maintenant - dernierClic;
+          dernierClic = maintenant;
+
+          if(delta <= VITESSE_MAX){
+            dernierClic = 0;   // évite qu'un 3e clic rapproché compte à nouveau
+            reussite();
+          } else if(delta < VITESSE_MAX * 3){
+            // deux clics ont bien eu lieu, mais trop espacés l'un de l'autre
+            erreur('Presque : rapprochez un peu plus les deux clics.');
+          }
+          // sinon, c'est un premier clic isolé : on attend simplement le second
         });
       }
     });
